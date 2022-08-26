@@ -9,9 +9,4 @@ def index_page(request):
 
 
 def today_json(request):
-    return JsonResponse(
-        {
-            'today': f'{date.today()}'
-        },
-        status=200
-    )
+    return JsonResponse({'today': f'{date.today()}'})
