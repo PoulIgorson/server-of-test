@@ -1,5 +1,5 @@
 from django.shortcuts import render
-frm django.http import JsonResponse
+from django.http import JsonResponse
 
 from datetime import date
 
