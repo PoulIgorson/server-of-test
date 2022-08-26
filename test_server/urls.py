@@ -21,5 +21,5 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index_page, name='index'),
-    path('/get_today/', views.today_json, name='today')
+    path('get_today/', views.today_json, name='today')
 ]
