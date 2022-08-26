@@ -1,4 +1,5 @@
 from django.shortcuts import render
+frm django.http import JsonResponse
 
 from datetime import date
 
@@ -8,9 +9,9 @@ def index_page(request):
 
 
 def today_json(request):
-    return {
-        'status': 200,
-        'body': {
+    return JsonResponse(
+        {
             'today': f'{date.today()}'
-        }
-    }
+        },
+        status=200
+    })
