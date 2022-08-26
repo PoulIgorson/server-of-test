@@ -14,4 +14,4 @@ def today_json(request):
             'today': f'{date.today()}'
         },
         status=200
-    })
+    )
