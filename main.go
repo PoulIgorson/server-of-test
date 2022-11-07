@@ -145,5 +145,5 @@ func main() {
 
 	router.Router(app, db_)
 
-	app.Listen("https://server-of-test.herokuapp.com/")
+	app.Listen("")
 }
