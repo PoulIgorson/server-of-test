@@ -145,5 +145,5 @@ func main() {
 
 	router.Router(app, db_)
 
-	app.Listen(":3000")
+	app.Listen()
 }
