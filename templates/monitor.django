@@ -1,0 +1,80 @@
+{% extends 'base/base.django' %}
+
+
+{% block extra_css %}
+<style>
+  .hide {
+    visibility: hidden;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container main ">
+  <div class="row mt-2 justify-content-center">
+    <div class="col mt-3">
+      <div class="d-flex align-content-start flex-wrap">
+        {% for size in sizes %}
+        <div class="m-1">
+            <button class="btn btn-primary"onclick="add(this)" name="{{ size }}"><h3>{{ size }}</3></button>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col">
+        {{ error }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="d-flex align-content-start flex-wrap">
+        {% for size, count in sizes %}
+        <div id="block_{{size}}" class="m-1 {% if count == '0' %}hide{% endif %}">
+          <h3><label id="label_{{size}}"style="padding-right: 10px">{{ size }}: </label><input id="count_{{ size }}" disabled="true" value="{{ count }}"></h3>
+          <button id="" class="btn btn-primary" style="width: 45%" onclick="sub(this)" name="{{ size }}"><h3>-</h3></button>
+          <button class="btn btn-primary" style="width: 45%" onclick="add(this)" name="{{ size }}"><h3>+</h3></button>
+          <script>
+            label_{{size}}.width
+          </script>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function add(obj) {
+    counter = document.getElementById("count_" + obj.name)
+    counter.value = Number(counter.value) + 1
+    document.getElementById("block_" + obj.name).classList.remove("hide")
+    postData(obj.name, counter.value)
+  }
+
+  function sub(obj) {
+    counter = document.getElementById("count_" + obj.name)
+    counter.value = Number(counter.value) - 1
+    if (counter.value < 1) {
+        counter.value = 0
+        document.getElementById("block_" + obj.name).classList.add("hide")
+    }
+    postData(obj.name, counter.value)
+  }
+
+  function postData(key, value) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `update?key=${key}&value=${value}`, true); 
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.onreadystatechange = function() {
+      console.log(`status ${this.status}`)
+    };
+    xhttp.send();
+  }
+</script>
+{% endblock %}

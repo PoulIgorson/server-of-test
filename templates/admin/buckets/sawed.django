@@ -1,0 +1,66 @@
+{% extends 'base/base.django' %}
+
+
+{% block content %}
+<div class="container main">
+  <div class="row mt-2">
+    <div class="col">
+      <h3>Админ</h3>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <h3>{{ pagename }}</h3>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <input type="date" onchange="updateData(this)" value="{{ date }}">
+      <button class="btn btn-primary" onclick="document.location.href = `/admin/sawed`">Сбросить</button>
+    </div>
+  </div>
+  
+  <div class="row mt-2">
+    <div class="col">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Дата</th>
+            {% for size in sizes %}
+            <th>{{ size }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for sawed in data %}
+          <tr>
+            <th>{{ sawed.ID }}</th>
+            <td>{{ sawed.Date }}</td>
+            {% for size in sizes %}
+            <td>{{ indexMap(sawed.Sizes, "uint", "uint8", size) }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div class="row mt-2">
+    <div class="col">
+      {{ error }}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function updateData(obj) {
+    document.location.href = `/admin/sawed?date=${obj.value.split("-").reverse().join("-")}`
+  }
+</script>
+{% endblock %}

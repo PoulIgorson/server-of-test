@@ -1,0 +1,23 @@
+<li>
+  <div class="m-2 pr-4">
+    {{ errors.login }}
+    <input id="login" name="login" minlength="4" value="{{ login }}" placeholder="Введите логин"><br>
+    {{ errors.password }}
+    <input id="password" type="password" minlength="8" name="password" value="{{ password }}" placeholder="Введите пароль">
+    
+    <div class="d-grid">
+      <button type="submit" onclick="send()" class="d-grid btn btn-primary">Вход</button>
+    </div>
+  </div>
+  </a>
+</li>
+
+<script>
+  function send() {
+    var data = `{
+      "login": "${document.getElementById("login").value}",
+      "password": "${document.getElementById("password").value}"
+    }`
+    sendPOST('/login', data, null, false)
+  }
+</script>

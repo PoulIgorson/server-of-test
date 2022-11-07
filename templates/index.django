@@ -1,0 +1,21 @@
+{% extends 'base/base.django' %}
+
+
+{% block extra_css %}
+<style>
+   .bbody {
+    background-image: url(/static/img/background_index.jpeg); /* Путь к фоновому изображению */
+    background-color: #000; /* Цвет фона */
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+   body {
+      background: url(/static/img/background_index.jpeg) center/cover no-repeat
+   }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+</div>
+{% endblock %}

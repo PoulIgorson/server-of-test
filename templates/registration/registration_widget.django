@@ -1,0 +1,29 @@
+<li>
+  <div class="m-2 pr-4">
+    {{ errors.login }}
+    <input id="login" name="login" minlength="4" value="{{ login }}" placeholder="Введите логин">
+    {{ errors.email }}
+    <input id="email" type="email" name="email" minlength="4" value="{{ email }}" placeholder="Введите адрес электронной почты">
+    {{ errors.password1 }}
+    <input id="password1" type="password" minlength="8" name="password1" value="{{ password1 }}" placeholder="Введите пароль">
+    {{ errors.password2 }}
+    <input id="password2" type="password" minlength="8" name="password2" value="{{ password2 }}" placeholder="Повторите пароль">
+    
+    <div class="d-grid">
+      <button type="submit" onclick="send()" class="d-grid btn btn-primary">Вход</button>
+    </div>
+  </div>
+  </a>
+</li>
+
+<script>
+  function send() {
+    var data = `{
+      "login": "${document.getElementById("login").value}",
+      "email": "${document.getElementById("email").value}",
+      "password1": "${document.getElementById("password1").value}",
+      "password2": "${document.getElementById("password2").value}"
+    }`
+    sendPOST('/registration', data)
+  }
+</script>

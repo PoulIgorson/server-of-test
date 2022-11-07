@@ -1,0 +1,79 @@
+{% extends 'base/base.django' %}
+
+
+{% block content %}
+<div class="container main">
+  <div class="row mt-2">
+    <div class="col">
+      <h3>Админ</h3>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <div class="row"><p>Размеры: </p></div>
+      <div class="row>">
+        <div class="d-flex align-content-start flex-wrap" id="sizes">
+          {% for size in sizes %}
+          <div class="d-flex mt-1">
+            <input name="size" value="{{ size }}" class="m-1">
+            <button class="btn btn-primary" onclick="removeSize(this)">-</button>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="m-1"><button class="btn btn-primary" onclick="addSize()">+</button></div>
+        <div class="m-1 mt-2"><button class="btn btn-primary" onclick="saveSizes()">Сохранить</button></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row mt-2">
+    <div class="col">
+      {{ error }}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function removeSize(btn) {
+    document.getElementById("sizes").removeChild(btn.parentElement)
+  }
+
+  function addSize() {
+    var div = document.createElement("div")
+    div.classList.add("d-flex", "mt-1")
+    var input = document.createElement("input")
+    input.name = "size"
+    input.classList.add("m-1")
+    input.focus()
+    input.scrollIntoView();
+    var btn = document.createElement("button")
+    btn.parentElement = div
+    btn.innerHTML = "-"
+    btn.classList.add("btn", "btn-primary")
+    btn.onclick = () => {
+      removeSize(btn)
+    }
+    div.appendChild(input)
+    div.appendChild(btn)
+    document.getElementById("sizes").appendChild(div)
+  }
+
+  function saveSizes() {
+    var sizesEl = document.getElementsByName("size")
+    var sizes = []
+    for (var i = 0; i < sizesEl.length; i++) {
+      sizes.push(sizesEl[i].value)
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `/admin/sizes?sizes=${sizes.join(" ")}`, true); 
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.onreadystatechange = function() {
+      console.log(`status ${this.status}`)
+    };
+    xhttp.send();
+  }
+</script>
+{% endblock %}

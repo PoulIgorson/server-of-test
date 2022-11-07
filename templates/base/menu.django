@@ -1,0 +1,43 @@
+<nav>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ menu.0.Path }}">Артемовская Пилорама</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          {% if user %}
+            {% for url in menu %}
+              {% if !(":" in url.Path or "api-" in url.Name or "auth-" in url.Name or url.Name == "index") %}
+                {% if !("admin" in url.Name) or user.Role.Name == "admin" %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url.Path }}">{{ url.DisplayName }}</a>
+                </li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </ul>
+        <ul class="navbar-nav d-flex">
+          <li class="nav-item">
+          {% if user %}
+            <a class="nav-link" href="/logout">Выйти</a>
+          {% else %}
+            <li class="nav-item">
+              <ul class="dropdown"style="padding-left: 10px;">
+                <button class="btn btn-outline-primary my-2 my-sm-0 dropdown-toggle" id="navbarDropdown"
+                  data-bs-toggle="dropdown" data-bs-display="static" data-bs-auto-close="outside" aria-expanded="false">Авторизация</button>
+                <div class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
+                  {% include '/registration/login_widget.django' %}
+                </div>
+              </ul>
+            </li>
+          {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</nav>

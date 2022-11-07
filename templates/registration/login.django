@@ -1,0 +1,34 @@
+{% extends 'base/base.django' %}
+
+{% block content %}
+<div class="container main">
+  <div class="row mt-5">
+    <div class="d-flex justify-content-center">
+      <div class="col-6">
+        <div>
+          {{ errors.login }}
+          <input id="login" name="login" minlength="4" value="{{ login }}" placeholder="Введите логин">
+          {{ errors.password }}
+          <input id="password" type="password" minlength="8" name="password" value="{{ password }}" placeholder="Введите пароль">
+          
+          <div class="d-grid">
+            <button type="submit" onclick="send()" class="d-grid btn btn-primary">Вход</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function send() {
+    var data = `{
+      "login": "${document.getElementById("login").value}",
+      "password": "${document.getElementById("password").value}"
+    }`
+    sendPOST('/login', data)
+  }
+</script>
+{% endblock %}

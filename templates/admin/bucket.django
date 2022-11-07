@@ -1,0 +1,32 @@
+{% extends 'base/base.django' %}
+
+
+{% block content %}
+<div class="container main">
+  <div class="row mt-2">
+    <div class="col">
+      <h3>Админ</h3>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <h3>{{ pagename }}</h3>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      {% for row in data %}
+      {{ row }}<br>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <div class="row mt-2">
+    <div class="col">
+      {{ error }}
+    </div>
+  </div>
+</div>
+{% endblock %}
